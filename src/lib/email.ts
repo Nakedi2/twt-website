@@ -90,3 +90,73 @@ export async function sendContactEmail(data: ContactEmailData): Promise<void> {
     }),
   ]);
 }
+
+interface ApplicationEmailData {
+  name: string;
+  email: string;
+  phone?: string;
+  position: string;
+  coverLetter: string;
+  cvFileName?: string;
+}
+
+export async function sendApplicationEmail(data: ApplicationEmailData): Promise<void> {
+  const adminHtml = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h2 style="color: #1a56db;">New Job Application Received</h2>
+      <p style="color: #555;">A new application has been submitted through the careers page.</p>
+      <table style="width: 100%; border-collapse: collapse; margin-top: 16px;">
+        <tr>
+          <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">Name:</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${data.name}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">Email:</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${data.email}</td>
+        </tr>
+        ${data.phone ? `
+        <tr>
+          <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">Phone:</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${data.phone}</td>
+        </tr>` : ""}
+        <tr>
+          <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">Position:</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${data.position}</td>
+        </tr>
+        ${data.cvFileName ? `
+        <tr>
+          <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">CV:</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${data.cvFileName}</td>
+        </tr>` : ""}
+        <tr>
+          <td style="padding: 8px; font-weight: bold; vertical-align: top;">Cover Letter:</td>
+          <td style="padding: 8px;">${data.coverLetter.replace(/\n/g, "<br/>")}</td>
+        </tr>
+      </table>
+    </div>
+  `;
+
+  const confirmationHtml = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h2 style="color: #1a56db;">Application Received - The Walking Textbooks</h2>
+      <p>Hi ${data.name},</p>
+      <p>Thank you for your interest in joining The Walking Textbooks! We have received your application for the <strong>${data.position}</strong> position.</p>
+      <p>Our team will review your application and get back to you within 5-7 business days.</p>
+      <p>In the meantime, feel free to explore our website and follow us on social media for the latest updates.</p>
+      <p>Best regards,<br/>The Walking Textbooks Team</p>
+    </div>
+  `;
+
+  await Promise.all([
+    sendEmail({
+      to: process.env.CAREERS_EMAIL || process.env.CONTACT_EMAIL || process.env.SMTP_USER!,
+      subject: `[TWT Application] ${data.position} - ${data.name}`,
+      html: adminHtml,
+    }),
+    sendEmail({
+      to: data.email,
+      subject: "Application Received - The Walking Textbooks",
+      html: confirmationHtml,
+    }),
+  ]);
+}

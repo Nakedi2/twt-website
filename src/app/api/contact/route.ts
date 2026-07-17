@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import ContactMessage from "@/models/ContactMessage";
+import { sendContactEmail } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
   try {
     await connectToDatabase();
 
     const body = await request.json();
-    const { name, email, subject, message } = body;
+    const { name, email, phone, subject, message } = body;
 
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
@@ -27,9 +28,16 @@ export async function POST(request: NextRequest) {
     const newMessage = await ContactMessage.create({
       name,
       email,
+      phone,
       subject,
       message,
     });
+
+    try {
+      await sendContactEmail({ name, email, phone, subject, message });
+    } catch (emailError) {
+      console.error("Failed to send contact email:", emailError);
+    }
 
     return NextResponse.json(
       { message: "Message sent successfully", data: newMessage },
