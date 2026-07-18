@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     await connectToDatabase();
 
     const body = await request.json();
-    const { name, role, organization, content, avatar, rating, featured } = body;
+    const { name, role, company, content, avatar, rating, featured } = body;
 
     if (!name || !content) {
       return NextResponse.json(
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     const testimonial = await Testimonial.create({
       name,
       role,
-      organization,
+      company,
       content,
       avatar,
       rating,
