@@ -26,52 +26,52 @@ const navLinks = [
 
 const megaMenuSections = [
   {
-    title: "Digital Solutions",
+    title: "Education",
     links: [
       {
-        label: "EdTech Platforms",
-        href: "/services/edtech",
-        description: "Custom learning management systems",
-        icon: <Monitor className="h-5 w-5" />,
+        label: "Academic Tutoring",
+        href: "/services/tutoring",
+        description: "Maths, Science, Life Sciences & Geography",
+        icon: <GraduationCap className="h-5 w-5" />,
       },
       {
-        label: "AI & Automation",
-        href: "/services/ai",
-        description: "Intelligent education tools",
-        icon: <BrainCircuit className="h-5 w-5" />,
+        label: "Trading Academy",
+        href: "/services/trading-academy",
+        description: "Forex, Technical Analysis & Risk Management",
+        icon: <Megaphone className="h-5 w-5" />,
       },
     ],
   },
   {
-    title: "Content & Marketing",
+    title: "Technology",
     links: [
       {
-        label: "Digital Marketing",
-        href: "/services/marketing",
-        description: "Strategic brand campaigns",
-        icon: <Megaphone className="h-5 w-5" />,
+        label: "Technology Solutions",
+        href: "/services/technology",
+        description: "MT5 Expert Advisors & AI Trading Systems",
+        icon: <Monitor className="h-5 w-5" />,
       },
       {
         label: "Software Development",
-        href: "/services/dev",
-        description: "Full-stack applications",
+        href: "/services#development",
+        description: "Web, Desktop & Automation Tools",
         icon: <Code2 className="h-5 w-5" />,
       },
     ],
   },
   {
-    title: "Education",
+    title: "AI & Innovation",
     links: [
       {
-        label: "E-Learning Content",
-        href: "/services/elearning",
-        description: "Interactive course material",
-        icon: <GraduationCap className="h-5 w-5" />,
+        label: "AI Solutions",
+        href: "/services/ai-solutions",
+        description: "Custom AI, ML & Educational AI",
+        icon: <BrainCircuit className="h-5 w-5" />,
       },
       {
-        label: "Innovation Consulting",
-        href: "/services/consulting",
-        description: "Digital transformation strategy",
+        label: "All Services",
+        href: "/services",
+        description: "View our complete service offering",
         icon: <Lightbulb className="h-5 w-5" />,
       },
     ],

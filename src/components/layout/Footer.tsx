@@ -23,12 +23,12 @@ const quickLinks = [
 ];
 
 const services = [
-  { label: "EdTech Platforms", href: "/services/edtech" },
-  { label: "AI & Automation", href: "/services/ai" },
-  { label: "Digital Marketing", href: "/services/marketing" },
-  { label: "Software Development", href: "/services/dev" },
-  { label: "E-Learning Content", href: "/services/elearning" },
-  { label: "Innovation Consulting", href: "/services/consulting" },
+  { label: "Academic Tutoring", href: "/services/tutoring" },
+  { label: "Trading Academy", href: "/services/trading-academy" },
+  { label: "Technology Solutions", href: "/services/technology" },
+  { label: "AI Solutions", href: "/services/ai-solutions" },
+  { label: "Software Development", href: "/services" },
+  { label: "All Services", href: "/services" },
 ];
 
 const socialLinks = [
@@ -140,11 +140,34 @@ export default function Footer() {
               Newsletter
             </h4>
             <form
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+                if (emailInput?.value) {
+                  try {
+                    const res = await fetch("/api/newsletter", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ email: emailInput.value }),
+                    });
+                    if (res.ok) {
+                      emailInput.value = "";
+                      alert("Thank you for subscribing!");
+                    } else {
+                      const data = await res.json();
+                      alert(data.error || "Something went wrong. Please try again.");
+                    }
+                  } catch {
+                    alert("Something went wrong. Please try again.");
+                  }
+                }
+              }}
               className="flex gap-2"
             >
               <input
                 type="email"
+                required
                 placeholder="Your email"
                 className="flex-1 min-w-0 rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C3CE1]/50 focus:border-[#6C3CE1] transition-all"
               />

@@ -32,6 +32,10 @@ export default function AdminLoginPage() {
         return;
       }
 
+      if (data.token) {
+        localStorage.setItem("twt-admin-token", data.token);
+      }
+
       router.push("/admin");
     } catch {
       setError("Something went wrong. Please try again.");

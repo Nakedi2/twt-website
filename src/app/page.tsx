@@ -752,11 +752,34 @@ export default function Home() {
                 and technology.
               </p>
               <form
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.target as HTMLFormElement;
+                  const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+                  if (emailInput?.value) {
+                    try {
+                      const res = await fetch("/api/newsletter", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: emailInput.value }),
+                      });
+                      if (res.ok) {
+                        emailInput.value = "";
+                        alert("Thank you for subscribing!");
+                      } else {
+                        const data = await res.json();
+                        alert(data.error || "Something went wrong. Please try again.");
+                      }
+                    } catch {
+                      alert("Something went wrong. Please try again.");
+                    }
+                  }
+                }}
                 className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row"
               >
                 <input
                   type="email"
+                  required
                   placeholder="Enter your email"
                   className="flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm text-white placeholder-white/50 outline-none backdrop-blur-sm transition-colors focus:border-white/40 focus:bg-white/15"
                 />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -9,99 +9,57 @@ import {
   ArrowRight,
   ArrowLeft,
   ChevronRight,
-  User,
   Mail,
   Send,
 } from "lucide-react";
 
+interface BlogPost {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content?: string;
+  category: string;
+  author: string;
+  tags: string[];
+  featured: boolean;
+  published: boolean;
+  createdAt: string;
+  image?: string;
+}
+
 const categories = ["All", "Education", "Technology", "AI", "Trading", "Business"];
 
-const allPosts = [
-  {
-    slug: "how-ai-is-transforming-education-in-africa",
-    title: "How AI is Transforming Education in Africa",
-    excerpt:
-      "Artificial intelligence is reshaping how students learn across the continent, from personalised tutoring systems to automated assessment platforms.",
-    category: "AI",
-    author: "Thabo Mokoena",
-    authorRole: "Head of AI Research",
-    date: "Jul 8, 2026",
-    readTime: "8 min read",
-    featured: true,
-    gradient: "from-indigo-600 to-purple-600",
-    tags: ["AI", "Education", "Africa", "EdTech"],
-  },
-  {
-    slug: "forex-trading-a-beginners-complete-guide",
-    title: "Forex Trading: A Beginner's Complete Guide",
-    excerpt:
-      "Everything you need to know before placing your first trade, including risk management, chart reading, and building a sustainable strategy.",
-    category: "Trading",
-    author: "Lebo Nkosi",
-    authorRole: "Senior Trading Analyst",
-    date: "Jul 5, 2026",
-    readTime: "12 min read",
-    featured: false,
-    gradient: "from-emerald-600 to-teal-600",
-    tags: ["Forex", "Trading", "Beginner", "Finance"],
-  },
-  {
-    slug: "the-future-of-edtech-in-south-africa",
-    title: "The Future of EdTech in South Africa",
-    excerpt:
-      "From township classrooms to university lecture halls, technology is bridging gaps and creating new opportunities for learners nationwide.",
-    category: "Education",
-    author: "Sipho Dlamini",
-    authorRole: "Education Strategist",
-    date: "Jul 2, 2026",
-    readTime: "6 min read",
-    featured: false,
-    gradient: "from-blue-600 to-cyan-600",
-    tags: ["EdTech", "South Africa", "Education", "Innovation"],
-  },
-  {
-    slug: "building-custom-trading-bots-with-python",
-    title: "Building Custom Trading Bots with Python",
-    excerpt:
-      "A hands-on walkthrough of creating algorithmic trading systems using Python, Pandas, and popular broker APIs.",
-    category: "Technology",
-    author: "Kagiso Tshepe",
-    authorRole: "Lead Developer",
-    date: "Jun 28, 2026",
-    readTime: "15 min read",
-    featured: false,
-    gradient: "from-orange-600 to-red-600",
-    tags: ["Python", "Trading Bots", "Algo Trading", "Programming"],
-  },
-  {
-    slug: "5-study-tips-for-matric-success",
-    title: "5 Study Tips for Matric Success",
-    excerpt:
-      "Proven strategies that helped thousands of South African matriculants ace their finals and secure university placements.",
-    category: "Education",
-    author: "Naledi Molefe",
-    authorRole: "Academic Coach",
-    date: "Jun 25, 2026",
-    readTime: "5 min read",
-    featured: false,
-    gradient: "from-pink-600 to-rose-600",
-    tags: ["Matric", "Study Tips", "Exams", "Success"],
-  },
-  {
-    slug: "why-every-student-should-learn-about-ai",
-    title: "Why Every Student Should Learn About AI",
-    excerpt:
-      "AI literacy is no longer optional. Here is why understanding artificial intelligence is critical for every career path in the 21st century.",
-    category: "AI",
-    author: "Thabo Mokoena",
-    authorRole: "Head of AI Research",
-    date: "Jun 20, 2026",
-    readTime: "7 min read",
-    featured: false,
-    gradient: "from-violet-600 to-indigo-600",
-    tags: ["AI", "Students", "Future Skills", "Technology"],
-  },
-];
+const gradientMap: Record<string, string> = {
+  AI: "from-indigo-600 to-purple-600",
+  Education: "from-blue-600 to-cyan-600",
+  Technology: "from-orange-600 to-red-600",
+  Trading: "from-emerald-600 to-teal-600",
+  Business: "from-violet-600 to-pink-600",
+  "Education Technology": "from-blue-600 to-purple-600",
+  "Trading Education": "from-emerald-600 to-teal-600",
+  "Academic Tutoring": "from-blue-500 to-cyan-500",
+  "Software Development": "from-orange-500 to-amber-500",
+};
+
+function getGradient(category: string): string {
+  return gradientMap[category] || "from-slate-600 to-slate-800";
+}
+
+function estimateReadTime(content: string): string {
+  const wordsPerMinute = 200;
+  const words = content.replace(/<[^>]*>/g, "").split(/\s+/).length;
+  const minutes = Math.max(3, Math.ceil(words / wordsPerMinute));
+  return `${minutes} min read`;
+}
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -116,24 +74,40 @@ export default function BlogPage() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
   const postsPerPage = 6;
 
-  const filteredPosts = allPosts.filter((post) => {
-    const matchesSearch =
-      post.title.toLowerCase().includes(search.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(search.toLowerCase());
-    const matchesCategory =
-      activeCategory === "All" || post.category === activeCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const fetchPosts = useCallback(async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({
+        page: currentPage.toString(),
+        limit: postsPerPage.toString(),
+      });
+      if (activeCategory !== "All") params.set("category", activeCategory);
+      if (search) params.set("search", search);
 
-  const featured = filteredPosts.find((p) => p.featured);
-  const gridPosts = filteredPosts.filter((p) => !p.featured);
-  const totalPages = Math.ceil(gridPosts.length / postsPerPage);
-  const paginatedPosts = gridPosts.slice(
-    (currentPage - 1) * postsPerPage,
-    currentPage * postsPerPage
-  );
+      const res = await fetch(`/api/blog?${params.toString()}`);
+      if (res.ok) {
+        const data = await res.json();
+        setPosts(data.posts || []);
+        setTotalPages(data.pagination?.totalPages || 1);
+      }
+    } catch {
+      // silently handle
+    } finally {
+      setLoading(false);
+    }
+  }, [currentPage, activeCategory, search]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
+  const featured = posts.find((p) => p.featured);
+  const gridPosts = posts.filter((p) => !p.featured || !featured || p._id !== featured._id);
 
   return (
     <main className="min-h-screen bg-white">
@@ -202,151 +176,162 @@ export default function BlogPage() {
           </div>
         </motion.div>
 
-        {/* Featured Post */}
-        {featured && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="mb-12"
-          >
-            <div className={`relative rounded-2xl overflow-hidden bg-gradient-to-br ${featured.gradient} p-8 md:p-12 text-white`}>
-              <div className="absolute top-6 left-6">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-sm border border-white/30">
-                  ★ Featured
-                </span>
-              </div>
-              <div className="mt-8 md:mt-4 max-w-3xl">
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-sm mb-4">
-                  {featured.category}
-                </span>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
-                  {featured.title}
-                </h2>
-                <p className="text-white/80 text-lg mb-6 leading-relaxed">
-                  {featured.excerpt}
-                </p>
-                <div className="flex flex-wrap items-center gap-4 mb-8 text-sm text-white/70">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center font-semibold text-sm">
-                      {featured.author.charAt(0)}
-                    </div>
-                    <span>{featured.author}</span>
-                  </div>
-                  <span>{featured.date}</span>
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{featured.readTime}</span>
-                  </div>
-                </div>
-                <Link
-                  href={`/blog/${featured.slug}`}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-indigo-700 font-semibold rounded-xl hover:bg-indigo-50 transition-colors"
-                >
-                  Read Article
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
+        {loading ? (
+          <div className="text-center py-16 mb-12">
+            <div className="inline-flex items-center gap-3 text-slate-500">
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-indigo-500 border-t-transparent" />
+              Loading articles...
             </div>
-          </motion.div>
-        )}
-
-        {/* Blog Grid */}
-        {paginatedPosts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {paginatedPosts.map((post, i) => (
-              <motion.article
-                key={post.slug}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeIn}
-                className="group bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-slate-200/60 transition-all duration-300"
+          </div>
+        ) : (
+          <>
+            {/* Featured Post */}
+            {featured && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="mb-12"
               >
-                <div className={`h-48 bg-gradient-to-br ${post.gradient} relative`}>
-                  <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-sm text-white border border-white/20">
-                    {post.category}
-                  </span>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-indigo-600 transition-colors">
-                    {post.title}
-                  </h3>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xs font-semibold">
-                        {post.author.charAt(0)}
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-slate-900">
-                          {post.author}
-                        </p>
-                        <p className="text-xs text-slate-400">{post.date}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 text-xs text-slate-400">
-                      <Clock className="w-3 h-3" />
-                      {post.readTime}
-                    </div>
+                <div className={`relative rounded-2xl overflow-hidden bg-gradient-to-br ${getGradient(featured.category)} p-8 md:p-12 text-white`}>
+                  <div className="absolute top-6 left-6">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-sm border border-white/30">
+                      ★ Featured
+                    </span>
                   </div>
-                  <div className="mt-4 pt-4 border-t border-slate-100">
+                  <div className="mt-8 md:mt-4 max-w-3xl">
+                    <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-sm mb-4">
+                      {featured.category}
+                    </span>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+                      {featured.title}
+                    </h2>
+                    <p className="text-white/80 text-lg mb-6 leading-relaxed">
+                      {featured.excerpt}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-4 mb-8 text-sm text-white/70">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center font-semibold text-sm">
+                          {featured.author.charAt(0)}
+                        </div>
+                        <span>{featured.author}</span>
+                      </div>
+                      <span>{formatDate(featured.createdAt)}</span>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        <span>{estimateReadTime(featured.content || featured.excerpt)}</span>
+                      </div>
+                    </div>
                     <Link
-                      href={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
+                      href={`/blog/${featured.slug}`}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-white text-indigo-700 font-semibold rounded-xl hover:bg-indigo-50 transition-colors"
                     >
-                      Read More
-                      <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                      Read Article
+                      <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
                 </div>
-              </motion.article>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-16 mb-12">
-            <p className="text-slate-400 text-lg">
-              No articles found. Try a different search or category.
-            </p>
-          </div>
-        )}
+              </motion.div>
+            )}
 
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex items-center justify-center gap-2 mb-16">
-            <button
-              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              disabled={currentPage === 1}
-              className="flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Previous
-            </button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={`w-10 h-10 rounded-xl text-sm font-medium transition-all ${
-                  currentPage === page
-                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-200"
-                    : "border border-slate-200 text-slate-600 hover:bg-slate-50"
-                }`}
-              >
-                {page}
-              </button>
-            ))}
-            <button
-              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-              disabled={currentPage === totalPages}
-              className="flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-            >
-              Next
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
+            {/* Blog Grid */}
+            {gridPosts.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                {gridPosts.map((post, i) => (
+                  <motion.article
+                    key={post._id}
+                    custom={i}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeIn}
+                    className="group bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-slate-200/60 transition-all duration-300"
+                  >
+                    <div className={`h-48 bg-gradient-to-br ${getGradient(post.category)} relative`}>
+                      <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-sm text-white border border-white/20">
+                        {post.category}
+                      </span>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-indigo-600 transition-colors">
+                        {post.title}
+                      </h3>
+                      <p className="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xs font-semibold">
+                            {post.author.charAt(0)}
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-slate-900">
+                              {post.author}
+                            </p>
+                            <p className="text-xs text-slate-400">{formatDate(post.createdAt)}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1 text-xs text-slate-400">
+                          <Clock className="w-3 h-3" />
+                          {estimateReadTime(post.excerpt)}
+                        </div>
+                      </div>
+                      <div className="mt-4 pt-4 border-t border-slate-100">
+                        <Link
+                          href={`/blog/${post.slug}`}
+                          className="inline-flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
+                        >
+                          Read More
+                          <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                        </Link>
+                      </div>
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16 mb-12">
+                <p className="text-slate-400 text-lg">
+                  No articles found. Try a different search or category.
+                </p>
+              </div>
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mb-16">
+                <button
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Previous
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`w-10 h-10 rounded-xl text-sm font-medium transition-all ${
+                      currentPage === page
+                        ? "bg-indigo-600 text-white shadow-md shadow-indigo-200"
+                        : "border border-slate-200 text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+                <button
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                >
+                  Next
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+          </>
         )}
 
         {/* Newsletter CTA */}
@@ -368,13 +353,31 @@ export default function BlogPage() {
                 and technology.
               </p>
               <form
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.target as HTMLFormElement;
+                  const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+                  if (emailInput?.value) {
+                    try {
+                      await fetch("/api/newsletter", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: emailInput.value }),
+                      });
+                      emailInput.value = "";
+                      alert("Thank you for subscribing!");
+                    } catch {
+                      alert("Something went wrong. Please try again.");
+                    }
+                  }
+                }}
                 className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
               >
                 <div className="relative flex-1">
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                   <input
                     type="email"
+                    required
                     placeholder="Enter your email"
                     className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-white/40 transition-all"
                   />
