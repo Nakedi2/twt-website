@@ -8,7 +8,15 @@ import TeamMember from "@/models/TeamMember";
 import FAQ from "@/models/FAQ";
 import bcrypt from "bcryptjs";
 
+export async function GET() {
+  return seed();
+}
+
 export async function POST() {
+  return seed();
+}
+
+async function seed() {
   try {
     await connectToDatabase();
 
