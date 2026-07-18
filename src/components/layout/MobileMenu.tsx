@@ -9,7 +9,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
-import DarkModeToggle from "./DarkModeToggle";
 
 interface NavLink {
   label: string;
@@ -156,11 +155,7 @@ export default function MobileMenu({
               })}
             </nav>
 
-            <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-[#0A1628] space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-500 dark:text-gray-400">Toggle theme</span>
-                <DarkModeToggle />
-              </div>
+            <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-[#0A1628]">
               <Link
                 href="/contact"
                 onClick={onClose}

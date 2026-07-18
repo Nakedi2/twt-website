@@ -13,7 +13,6 @@ import {
   Lightbulb,
 } from "lucide-react";
 import Link from "next/link";
-import DarkModeToggle from "./DarkModeToggle";
 import MobileMenu from "./MobileMenu";
 
 const navLinks = [
@@ -170,7 +169,6 @@ export default function Header() {
 
             {/* Right Section */}
             <div className="flex items-center gap-3">
-              <DarkModeToggle className="hidden lg:flex" />
               <Link
                 href="/contact"
                 className="hidden lg:inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-[#0A1628] to-[#6C3CE1] text-white text-sm font-medium rounded-xl hover:shadow-lg hover:shadow-[#6C3CE1]/25 transition-all duration-300"
