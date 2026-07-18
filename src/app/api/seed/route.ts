@@ -8,6 +8,8 @@ import TeamMember from "@/models/TeamMember";
 import FAQ from "@/models/FAQ";
 import bcrypt from "bcryptjs";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   return seed();
 }

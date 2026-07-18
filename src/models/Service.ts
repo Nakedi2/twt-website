@@ -28,7 +28,6 @@ const ServiceSchema = new Schema<IService>(
   { timestamps: true }
 );
 
-ServiceSchema.index({ slug: 1 });
 ServiceSchema.index({ order: 1 });
 
 export default mongoose.models.Service ||

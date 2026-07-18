@@ -13,7 +13,6 @@ const SubscriberSchema = new Schema<ISubscriber>(
   { timestamps: true }
 );
 
-SubscriberSchema.index({ email: 1 });
 
 export default mongoose.models.Subscriber ||
   mongoose.model<ISubscriber>("Subscriber", SubscriberSchema);
