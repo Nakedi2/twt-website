@@ -30,7 +30,7 @@ export default function SubscribersPage() {
 
   const fetchSubscribers = async () => {
     try {
-      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      const token = typeof window !== "undefined" ? localStorage.getItem("twt-admin-token") : null;
       const res = await fetch("/api/subscribers", {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
@@ -55,7 +55,7 @@ export default function SubscribersPage() {
 
   const handleDelete = async (id: string) => {
     try {
-      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      const token = typeof window !== "undefined" ? localStorage.getItem("twt-admin-token") : null;
       await fetch(`/api/subscribers/${id}`, {
         method: "DELETE",
         headers: token ? { Authorization: `Bearer ${token}` } : {},

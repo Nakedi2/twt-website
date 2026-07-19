@@ -46,6 +46,18 @@ export default function ServicesPage() {
     fetchServices();
   }, []);
 
+  const getToken = () => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("twt-admin-token");
+    }
+    return null;
+  };
+
+  const authHeaders = (): Record<string, string> => {
+    const token = getToken();
+    return token ? { "Content-Type": "application/json", Authorization: `Bearer ${token}` } : { "Content-Type": "application/json" };
+  };
+
   const fetchServices = async () => {
     try {
       const res = await fetch("/api/services");
@@ -127,13 +139,13 @@ export default function ServicesPage() {
       if (editing) {
         await fetch(`/api/services/${editing._id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify(payload),
         });
       } else {
         await fetch("/api/services", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify(payload),
         });
       }
@@ -146,7 +158,7 @@ export default function ServicesPage() {
 
   const handleDelete = async (id: string) => {
     try {
-      await fetch(`/api/services/${id}`, { method: "DELETE" });
+      await fetch(`/api/services/${id}`, { method: "DELETE", headers: authHeaders() });
       await fetchServices();
     } catch { /* silent */ }
     setDeleteConfirm(null);
@@ -161,12 +173,12 @@ export default function ServicesPage() {
     const target = services[swapIdx];
     await fetch(`/api/services/${service._id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: authHeaders(),
       body: JSON.stringify({ order: target.order }),
     });
     await fetch(`/api/services/${target._id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: authHeaders(),
       body: JSON.stringify({ order: service.order }),
     });
     await fetchServices();

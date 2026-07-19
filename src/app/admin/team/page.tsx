@@ -40,6 +40,18 @@ export default function TeamPage() {
     fetchMembers();
   }, []);
 
+  const getToken = () => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("twt-admin-token");
+    }
+    return null;
+  };
+
+  const authHeaders = (): Record<string, string> => {
+    const token = getToken();
+    return token ? { "Content-Type": "application/json", Authorization: `Bearer ${token}` } : { "Content-Type": "application/json" };
+  };
+
   const fetchMembers = async () => {
     try {
       const res = await fetch("/api/team");
@@ -90,13 +102,13 @@ export default function TeamPage() {
       if (editing) {
         await fetch(`/api/team/${editing._id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify(payload),
         });
       } else {
         await fetch("/api/team", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify(payload),
         });
       }
@@ -109,7 +121,7 @@ export default function TeamPage() {
 
   const handleDelete = async (id: string) => {
     try {
-      await fetch(`/api/team/${id}`, { method: "DELETE" });
+      await fetch(`/api/team/${id}`, { method: "DELETE", headers: authHeaders() });
       await fetchMembers();
     } catch { /* silent */ }
     setDeleteConfirm(null);

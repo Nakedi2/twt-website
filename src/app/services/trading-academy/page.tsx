@@ -160,11 +160,11 @@ const stats = [
 
 export default function TradingAcademyPage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 antialiased overflow-x-hidden">
+    <main className="min-h-screen bg-white dark:bg-slate-950 text-gray-900 dark:text-slate-100 antialiased overflow-x-hidden">
       {/* ================================================================ */}
       {/* HERO                                                             */}
       {/* ================================================================ */}
-      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-emerald-950 to-teal-950">
+      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-gradient-to-br from-white via-emerald-50 to-teal-50 dark:from-slate-950 dark:via-emerald-950 dark:to-teal-950">
         <div className="pointer-events-none absolute inset-0 [background-size:60px_60px] [background-image:linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]" />
 
         <motion.div
@@ -184,7 +184,7 @@ export default function TradingAcademyPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-300 backdrop-blur-sm">
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/5 px-4 py-1.5 text-xs font-medium text-gray-700 dark:text-slate-300 backdrop-blur-sm">
               <TrendingUp className="h-3.5 w-3.5" />
               Financial Education
             </span>
@@ -206,13 +206,13 @@ export default function TradingAcademyPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-400 md:text-xl"
+            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600 dark:text-slate-400 md:text-xl"
           >
             Master the markets with comprehensive trading education.
           </motion.p>
         </div>
 
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent" />
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent dark:from-slate-950" />
       </section>
 
       {/* ================================================================ */}
@@ -226,7 +226,7 @@ export default function TradingAcademyPage() {
               Courses
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             A structured curriculum designed to take you from complete beginner
             to confident, profitable trader.
           </p>
@@ -237,18 +237,18 @@ export default function TradingAcademyPage() {
             <motion.div
               key={course.title}
               variants={fadeUp}
-              className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/[0.06] bg-gray-50 dark:bg-white/[0.02] p-8 backdrop-blur-sm transition-all hover:border-gray-300 hover:bg-gray-100 dark:hover:border-white/[0.12] dark:hover:bg-white/[0.04]"
             >
               <div className={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${course.gradient} shadow-lg`}>
                 <course.icon className="h-7 w-7 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-white">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {course.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-400">
+              <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-slate-400">
                 {course.description}
               </p>
-              <button className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-emerald-400 transition-colors hover:text-emerald-300">
+              <button className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-400 transition-colors hover:text-emerald-500 dark:hover:text-emerald-300">
                 Learn More
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
               </button>
@@ -268,7 +268,7 @@ export default function TradingAcademyPage() {
               Different
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             We go beyond theory. Our academy equips you with practical skills,
             real experience, and ongoing support.
           </p>
@@ -279,13 +279,13 @@ export default function TradingAcademyPage() {
             <motion.div
               key={feature.title}
               variants={fadeUp}
-              className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-7 transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
+              className="rounded-2xl border border-gray-200 dark:border-white/[0.06] bg-gray-50 dark:bg-white/[0.02] p-7 transition-all hover:border-gray-300 hover:bg-gray-100 dark:hover:border-white/[0.12] dark:hover:bg-white/[0.04]"
             >
-              <feature.icon className="h-8 w-8 text-emerald-400" />
-              <h3 className="mt-4 text-lg font-semibold text-white">
+              <feature.icon className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
+              <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
                 {feature.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-slate-400">
                 {feature.description}
               </p>
             </motion.div>
@@ -304,7 +304,7 @@ export default function TradingAcademyPage() {
               Industry-Leading Technology
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             Learn to trade using the same platforms and tools used by
             professional traders worldwide.
           </p>
@@ -315,15 +315,15 @@ export default function TradingAcademyPage() {
             <motion.div
               key={platform.name}
               variants={fadeUp}
-              className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 text-center transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
+              className="rounded-2xl border border-gray-200 dark:border-white/[0.06] bg-gray-50 dark:bg-white/[0.02] p-8 text-center transition-all hover:border-gray-300 hover:bg-gray-100 dark:hover:border-white/[0.12] dark:hover:bg-white/[0.04]"
             >
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 ring-1 ring-white/10">
-                <LineChart className="h-7 w-7 text-emerald-400" />
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 ring-1 ring-gray-200 dark:ring-white/10">
+                <LineChart className="h-7 w-7 text-emerald-600 dark:text-emerald-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {platform.name}
               </h3>
-              <p className="mt-2 text-sm text-slate-400">
+              <p className="mt-2 text-sm text-gray-600 dark:text-slate-400">
                 {platform.description}
               </p>
             </motion.div>
@@ -351,13 +351,13 @@ export default function TradingAcademyPage() {
               variants={fadeUp}
               className="text-center"
             >
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 ring-1 ring-white/10">
-                <stat.icon className="h-7 w-7 text-emerald-400" />
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 ring-1 ring-gray-200 dark:ring-white/10">
+                <stat.icon className="h-7 w-7 text-emerald-600 dark:text-emerald-400" />
               </div>
-              <p className="text-4xl font-bold tracking-tight text-white md:text-5xl">
+              <p className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white md:text-5xl">
                 {stat.value}
               </p>
-              <p className="mt-2 text-sm font-medium text-slate-400">
+              <p className="mt-2 text-sm font-medium text-gray-600 dark:text-slate-400">
                 {stat.label}
               </p>
             </motion.div>
@@ -370,7 +370,7 @@ export default function TradingAcademyPage() {
       {/* ================================================================ */}
       <Section className="mx-auto max-w-4xl px-6 pb-28">
         <Fade>
-          <div className="relative overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.02] p-10 md:p-14">
+          <div className="relative overflow-hidden rounded-3xl border border-gray-200 dark:border-white/[0.06] bg-gray-50 dark:bg-white/[0.02] p-10 md:p-14">
             <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-emerald-500/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-teal-500/10 blur-3xl" />
             <div className="relative z-10">
@@ -382,7 +382,7 @@ export default function TradingAcademyPage() {
                   />
                 ))}
               </div>
-              <blockquote className="text-lg leading-relaxed text-slate-300 md:text-xl">
+              <blockquote className="text-lg leading-relaxed text-gray-700 dark:text-slate-300 md:text-xl">
                 &ldquo;I started the Trading Academy with zero knowledge of
                 forex markets. Eight months later, I am consistently
                 profitable and managing my own portfolio. The structured
@@ -394,10 +394,10 @@ export default function TradingAcademyPage() {
                   KL
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">
                     Karabo Lesedi
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-gray-500 dark:text-slate-500">
                     Independent Forex Trader, Pretoria
                   </p>
                 </div>

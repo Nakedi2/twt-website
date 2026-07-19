@@ -162,12 +162,12 @@ const processSteps = [
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 antialiased overflow-x-hidden">
+    <main className="min-h-screen bg-white text-gray-900 dark:bg-slate-950 dark:text-slate-100 antialiased overflow-x-hidden">
       {/* ================================================================ */}
       {/* HERO                                                             */}
       {/* ================================================================ */}
-      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950">
-        <div className="pointer-events-none absolute inset-0 [background-size:60px_60px] [background-image:linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]" />
+      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-gradient-to-br from-white via-indigo-50 to-purple-50 dark:from-slate-950 dark:via-indigo-950 dark:to-purple-950">
+        <div className="pointer-events-none absolute inset-0 [background-size:60px_60px] [background-image:linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]" />
 
         <motion.div
           animate={{ y: [0, -30, 0], rotate: [0, 15, 0] }}
@@ -186,7 +186,7 @@ export default function ServicesPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-300 backdrop-blur-sm">
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-100 px-4 py-1.5 text-xs font-medium text-gray-700 backdrop-blur-sm dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
               <GraduationCap className="h-3.5 w-3.5" />
               Comprehensive Solutions
             </span>
@@ -208,14 +208,14 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-400 md:text-xl"
+            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600 dark:text-slate-400 md:text-xl"
           >
             Comprehensive solutions spanning education, technology, and
             artificial intelligence.
           </motion.p>
         </div>
 
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent" />
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent dark:from-slate-950" />
       </section>
 
       {/* ================================================================ */}
@@ -229,7 +229,7 @@ export default function ServicesPage() {
               Offer
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             Five core service pillars designed to meet the diverse needs of
             students, educators, traders, and businesses across South Africa.
           </p>
@@ -240,22 +240,22 @@ export default function ServicesPage() {
             <motion.div
               key={service.title}
               variants={fadeUp}
-              className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 p-8 backdrop-blur-sm transition-all hover:border-gray-300 hover:bg-gray-100 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-white/[0.12] dark:hover:bg-white/[0.04]"
             >
               <div className={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${service.gradient} shadow-lg`}>
                 <service.icon className="h-7 w-7 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-white">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {service.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-400">
+              <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-slate-400">
                 {service.description}
               </p>
               <ul className="mt-5 space-y-2">
                 {service.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-center gap-2 text-sm text-slate-300"
+                    className="flex items-center gap-2 text-sm text-gray-700 dark:text-slate-300"
                   >
                     <CheckCircle className="h-4 w-4 shrink-0 text-green-400" />
                     {feature}
@@ -264,7 +264,7 @@ export default function ServicesPage() {
               </ul>
               <Link
                 href={service.href}
-                className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 transition-colors hover:text-blue-300"
+                className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 transition-colors hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Learn More
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -285,7 +285,7 @@ export default function ServicesPage() {
               Work
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             A proven four-step process that ensures every engagement delivers
             measurable results.
           </p>
@@ -302,16 +302,16 @@ export default function ServicesPage() {
                 variants={fadeUp}
                 className="relative flex flex-col items-center text-center"
               >
-                <div className="relative z-10 mb-6 flex h-[72px] w-[72px] items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-blue-500/20 to-purple-500/20">
+                <div className="relative z-10 mb-6 flex h-[72px] w-[72px] items-center justify-center rounded-2xl border border-gray-200 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:border-white/10">
                   <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-[10px] font-bold text-white">
                     {i + 1}
                   </span>
                   <step.icon className="h-7 w-7 text-blue-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   {step.title}
                 </h3>
-                <p className="mt-2 text-sm text-slate-400">
+                <p className="mt-2 text-sm text-gray-600 dark:text-slate-400">
                   {step.description}
                 </p>
               </motion.div>

@@ -71,14 +71,14 @@ function AnimatedCounter({
 
   return (
     <div ref={ref} className="text-center">
-      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 ring-1 ring-white/10">
+      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 ring-1 ring-gray-200 dark:ring-white/10">
         <Icon className="h-7 w-7 text-blue-400" />
       </div>
-      <p className="text-4xl font-bold tracking-tight text-white md:text-5xl">
+      <p className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white md:text-5xl">
         {count}
         {suffix}
       </p>
-      <p className="mt-2 text-sm font-medium text-slate-400">{label}</p>
+      <p className="mt-2 text-sm font-medium text-gray-600 dark:text-slate-400">{label}</p>
     </div>
   );
 }
@@ -140,13 +140,13 @@ function Fade({ children, className = "" }: { children: React.ReactNode; classNa
 // ---------------------------------------------------------------------------
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 antialiased overflow-x-hidden">
+    <main className="min-h-screen bg-white text-gray-900 dark:bg-slate-950 dark:text-slate-100 antialiased overflow-x-hidden">
       {/* ================================================================ */}
       {/* 1. HERO                                                          */}
       {/* ================================================================ */}
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950">
+      <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-indigo-50 to-purple-50 dark:from-slate-950 dark:via-indigo-950 dark:to-purple-950">
         {/* grid overlay */}
-        <div className="pointer-events-none absolute inset-0 [background-size:60px_60px] [background-image:linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]" />
+        <div className="pointer-events-none absolute inset-0 [background-size:60px_60px] [background-image:linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]" />
 
         {/* floating shapes */}
         <motion.div
@@ -167,12 +167,12 @@ export default function Home() {
         <motion.div
           animate={{ scale: [1, 1.15, 1], rotate: [0, 90, 0] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-[8%] bottom-[25%] h-40 w-40 rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm"
+          className="absolute right-[8%] bottom-[25%] h-40 w-40 rounded-2xl border border-gray-200 dark:border-white/[0.06] bg-gray-100/50 dark:bg-white/[0.02] backdrop-blur-sm"
         />
         <motion.div
           animate={{ y: [0, 18, 0], rotate: [0, -45, 0] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute left-[55%] top-[12%] h-20 w-20 rounded-lg border border-white/[0.05] bg-white/[0.03]"
+          className="absolute left-[55%] top-[12%] h-20 w-20 rounded-lg border border-gray-200 dark:border-white/[0.05] bg-gray-100/50 dark:bg-white/[0.03]"
         />
 
         {/* content */}
@@ -182,7 +182,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-300 backdrop-blur-sm">
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-100 px-4 py-1.5 text-xs font-medium text-gray-700 backdrop-blur-sm dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
               <GraduationCap className="h-3.5 w-3.5" />
               South Africa&apos;s Premier Ed-Tech Company
             </span>
@@ -205,7 +205,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-400 md:text-xl"
+            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600 dark:text-slate-400 md:text-xl"
           >
             Helping students, educators, and traders unlock their full potential
             using education, technology, and artificial intelligence.
@@ -226,7 +226,7 @@ export default function Home() {
             </Link>
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-8 py-3.5 text-sm font-semibold text-slate-200 backdrop-blur-sm transition-all hover:border-white/25 hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-gray-100 px-8 py-3.5 text-sm font-semibold text-gray-800 backdrop-blur-sm transition-all hover:bg-gray-200 dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:border-white/25 dark:hover:bg-white/10"
             >
               Explore Services
             </Link>
@@ -234,15 +234,15 @@ export default function Home() {
         </div>
 
         {/* bottom gradient fade */}
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent" />
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent dark:from-slate-950" />
       </section>
 
       {/* ================================================================ */}
       {/* 2. TRUSTED BY                                                    */}
       {/* ================================================================ */}
-      <Section className="border-y border-white/5 bg-slate-950/80 py-16 backdrop-blur-sm">
+      <Section className="border-y border-gray-200 bg-gray-50/80 py-16 backdrop-blur-sm dark:border-white/5 dark:bg-slate-950/80">
         <Fade className="text-center">
-          <p className="text-sm font-medium uppercase tracking-widest text-slate-500">
+          <p className="text-sm font-medium uppercase tracking-widest text-gray-500 dark:text-slate-500">
             Trusted by educators and innovators worldwide
           </p>
         </Fade>
@@ -250,7 +250,7 @@ export default function Home() {
           {["UNISA", "UCT", "WITS", "NWU", "UP", "SU"].map((name) => (
             <span
               key={name}
-              className="text-xl font-bold tracking-wider text-slate-700 transition-colors hover:text-slate-500"
+              className="text-xl font-bold tracking-wider text-gray-400 transition-colors hover:text-gray-600 dark:text-slate-700 dark:hover:text-slate-500"
             >
               {name}
             </span>
@@ -289,7 +289,7 @@ export default function Home() {
               Services
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             Comprehensive solutions designed to empower learners, educators, and
             businesses across Africa and beyond.
           </p>
@@ -341,18 +341,18 @@ export default function Home() {
             <motion.div
               key={service.title}
               variants={fadeUp}
-              className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 p-8 backdrop-blur-sm transition-all hover:border-gray-300 hover:bg-gray-100 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-white/[0.12] dark:hover:bg-white/[0.04]"
             >
               <div className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${service.gradient} shadow-lg`}>
                 <service.icon className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-lg font-semibold text-white">{service.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-400">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{service.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-slate-400">
                 {service.description}
               </p>
               <Link
                 href={service.href}
-                className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 transition-colors hover:text-blue-300"
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 transition-colors hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Learn More
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -368,7 +368,7 @@ export default function Home() {
       <Section className="mx-auto max-w-7xl px-6 pb-28">
         <div className="grid items-center gap-16 lg:grid-cols-2">
           <Fade>
-            <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-blue-400">
+            <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400">
               Who We Are
             </span>
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
@@ -377,7 +377,7 @@ export default function Home() {
                 Education &amp; Technology
               </span>
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-slate-400">
+            <p className="mt-6 text-base leading-relaxed text-gray-600 dark:text-slate-400">
               The Walking Textbooks is a South African education and technology
               company founded with a singular mission: to make quality education
               accessible to every learner, regardless of their background or
@@ -385,7 +385,7 @@ export default function Home() {
               artificial intelligence to deliver personalised learning
               experiences that drive measurable outcomes.
             </p>
-            <p className="mt-4 text-base leading-relaxed text-slate-400">
+            <p className="mt-4 text-base leading-relaxed text-gray-600 dark:text-slate-400">
               From our roots in South Africa, we have expanded our reach across
               the continent and beyond, serving students, educators, and
               businesses in over ten countries. Our multi-disciplinary team
@@ -403,22 +403,22 @@ export default function Home() {
 
           <Fade className="relative hidden lg:flex">
             <div className="relative mx-auto h-[420px] w-full max-w-md">
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 ring-1 ring-white/10" />
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 ring-1 ring-gray-200 dark:ring-white/10" />
               <div className="absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-blue-500/30 to-purple-500/30 blur-2xl" />
-              <div className="absolute left-8 top-8 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+              <div className="absolute left-8 top-8 rounded-2xl border border-gray-200 bg-gray-100 p-5 backdrop-blur-sm dark:border-white/10 dark:bg-white/5">
                 <Lightbulb className="mb-2 h-8 w-8 text-yellow-400" />
-                <p className="text-sm font-semibold text-white">AI-Powered</p>
-                <p className="text-xs text-slate-400">Smart Learning</p>
+                <p className="text-sm font-semibold text-gray-900 dark:text-white">AI-Powered</p>
+                <p className="text-xs text-gray-600 dark:text-slate-400">Smart Learning</p>
               </div>
-              <div className="absolute bottom-8 right-8 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+              <div className="absolute bottom-8 right-8 rounded-2xl border border-gray-200 bg-gray-100 p-5 backdrop-blur-sm dark:border-white/10 dark:bg-white/5">
                 <Globe className="mb-2 h-8 w-8 text-blue-400" />
-                <p className="text-sm font-semibold text-white">Global Reach</p>
-                <p className="text-xs text-slate-400">10+ Countries</p>
+                <p className="text-sm font-semibold text-gray-900 dark:text-white">Global Reach</p>
+                <p className="text-xs text-gray-600 dark:text-slate-400">10+ Countries</p>
               </div>
-              <div className="absolute right-8 top-1/2 -translate-y-1/2 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+              <div className="absolute right-8 top-1/2 -translate-y-1/2 rounded-2xl border border-gray-200 bg-gray-100 p-5 backdrop-blur-sm dark:border-white/10 dark:bg-white/5">
                 <Award className="mb-2 h-8 w-8 text-purple-400" />
-                <p className="text-sm font-semibold text-white">Proven</p>
-                <p className="text-xs text-slate-400">98% Success</p>
+                <p className="text-sm font-semibold text-gray-900 dark:text-white">Proven</p>
+                <p className="text-xs text-gray-600 dark:text-slate-400">98% Success</p>
               </div>
             </div>
           </Fade>
@@ -436,7 +436,7 @@ export default function Home() {
               The Walking Textbooks
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             We combine the best of human expertise with cutting-edge technology
             to deliver an unmatched educational experience.
           </p>
@@ -484,13 +484,13 @@ export default function Home() {
             <motion.div
               key={feature.title}
               variants={fadeUp}
-              className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-7 transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
+              className="rounded-2xl border border-gray-200 bg-gray-50 p-7 transition-all hover:border-gray-300 hover:bg-gray-100 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-white/[0.12] dark:hover:bg-white/[0.04]"
             >
               <feature.icon className="h-8 w-8 text-blue-400" />
-              <h3 className="mt-4 text-lg font-semibold text-white">
+              <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
                 {feature.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-slate-400">
                 {feature.description}
               </p>
             </motion.div>
@@ -509,7 +509,7 @@ export default function Home() {
               Students Say
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             Real stories from students and professionals who have transformed
             their journey with TWT.
           </p>
@@ -545,10 +545,10 @@ export default function Home() {
             <motion.div
               key={t.name}
               variants={fadeUp}
-              className="relative rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8"
+              className="relative rounded-2xl border border-gray-200 bg-gray-50 p-8 dark:border-white/[0.06] dark:bg-white/[0.02]"
             >
-              <Quote className="mb-4 h-8 w-8 text-white/10" />
-              <p className="text-sm leading-relaxed text-slate-300">
+              <Quote className="mb-4 h-8 w-8 text-gray-300 dark:text-white/10" />
+              <p className="text-sm leading-relaxed text-gray-700 dark:text-slate-300">
                 &ldquo;{t.quote}&rdquo;
               </p>
               <div className="mt-6 flex items-center gap-4">
@@ -558,8 +558,8 @@ export default function Home() {
                   {t.initials}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white">{t.name}</p>
-                  <p className="text-xs text-slate-500">{t.role}</p>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">{t.name}</p>
+                  <p className="text-xs text-gray-500 dark:text-slate-500">{t.role}</p>
                 </div>
               </div>
               <div className="mt-4 flex gap-0.5">
@@ -586,7 +586,7 @@ export default function Home() {
               Projects
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             A selection of projects that showcase our capabilities in education
             and technology.
           </p>
@@ -619,27 +619,27 @@ export default function Home() {
             <motion.div
               key={project.title}
               variants={fadeUp}
-              className="group overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] transition-all hover:border-white/[0.12]"
+              className="group overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 transition-all hover:border-gray-300 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-white/[0.12]"
             >
               <div className={`h-44 bg-gradient-to-br ${project.gradient}`} />
               <div className="p-7">
-                <h3 className="text-lg font-semibold text-white">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   {project.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-slate-400">
                   {project.description}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-slate-300 ring-1 ring-white/10"
+                      className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 ring-1 ring-gray-200 dark:bg-white/5 dark:text-slate-300 dark:ring-white/10"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
-                <button className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 transition-colors hover:text-blue-300">
+                <button className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 transition-colors hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
                   View Project
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                 </button>
@@ -660,7 +660,7 @@ export default function Home() {
               Insights
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             Thought leadership, tutorials, and news from the TWT team.
           </p>
         </Fade>
@@ -695,24 +695,24 @@ export default function Home() {
             <motion.div
               key={post.title}
               variants={fadeUp}
-              className="group overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] transition-all hover:border-white/[0.12]"
+              className="group overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 transition-all hover:border-gray-300 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-white/[0.12]"
             >
               <div className={`h-48 bg-gradient-to-br ${post.gradient}`} />
               <div className="p-7">
-                <span className="inline-block rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-blue-300 ring-1 ring-white/10">
+                <span className="inline-block rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-blue-600 ring-1 ring-gray-200 dark:bg-white/5 dark:text-blue-300 dark:ring-white/10">
                   {post.category}
                 </span>
-                <h3 className="mt-4 text-lg font-semibold text-white leading-snug">
+                <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white leading-snug">
                   {post.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-slate-400">
                   {post.excerpt}
                 </p>
                 <div className="mt-4 flex items-center justify-between">
-                  <span className="text-xs text-slate-500">{post.date}</span>
+                  <span className="text-xs text-gray-500 dark:text-slate-500">{post.date}</span>
                   <Link
                     href="/blog"
-                    className="inline-flex items-center gap-1 text-sm font-medium text-blue-400 transition-colors hover:text-blue-300"
+                    className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 transition-colors hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
                   >
                     Read More
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -726,7 +726,7 @@ export default function Home() {
         <Fade className="mt-12 text-center">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-semibold text-slate-200 backdrop-blur-sm transition-all hover:border-white/25 hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-gray-100 px-7 py-3 text-sm font-semibold text-gray-800 backdrop-blur-sm transition-all hover:bg-gray-200 dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:border-white/25 dark:hover:bg-white/10"
           >
             View All Articles
             <ArrowRight className="h-4 w-4" />
@@ -807,7 +807,7 @@ export default function Home() {
               Learning?
             </span>
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-slate-400">
+          <p className="mx-auto mt-5 max-w-xl text-gray-600 dark:text-slate-400">
             Join hundreds of students and professionals who have already
             transformed their educational journey with TWT.
           </p>
@@ -821,7 +821,7 @@ export default function Home() {
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-8 py-3.5 text-sm font-semibold text-slate-200 backdrop-blur-sm transition-all hover:border-white/25 hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-gray-100 px-8 py-3.5 text-sm font-semibold text-gray-800 backdrop-blur-sm transition-all hover:bg-gray-200 dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:border-white/25 dark:hover:bg-white/10"
             >
               Contact Us
             </Link>

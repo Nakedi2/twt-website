@@ -33,6 +33,18 @@ export default function TestimonialsPage() {
     fetchTestimonials();
   }, []);
 
+  const getToken = () => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("twt-admin-token");
+    }
+    return null;
+  };
+
+  const authHeaders = (): Record<string, string> => {
+    const token = getToken();
+    return token ? { "Content-Type": "application/json", Authorization: `Bearer ${token}` } : { "Content-Type": "application/json" };
+  };
+
   const fetchTestimonials = async () => {
     try {
       const res = await fetch("/api/testimonials");
@@ -78,13 +90,13 @@ export default function TestimonialsPage() {
       if (editing) {
         await fetch(`/api/testimonials/${editing._id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify(payload),
         });
       } else {
         await fetch("/api/testimonials", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify(payload),
         });
       }
@@ -97,7 +109,7 @@ export default function TestimonialsPage() {
 
   const handleDelete = async (id: string) => {
     try {
-      await fetch(`/api/testimonials/${id}`, { method: "DELETE" });
+      await fetch(`/api/testimonials/${id}`, { method: "DELETE", headers: authHeaders() });
       await fetchTestimonials();
     } catch { /* silent */ }
     setDeleteConfirm(null);

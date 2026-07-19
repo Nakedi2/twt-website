@@ -151,11 +151,11 @@ const capabilities = [
 
 export default function AISolutionsPage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 antialiased overflow-x-hidden">
+    <main className="min-h-screen bg-white dark:bg-slate-950 text-gray-900 dark:text-slate-100 antialiased overflow-x-hidden">
       {/* ================================================================ */}
       {/* HERO                                                             */}
       {/* ================================================================ */}
-      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-pink-950 to-purple-950">
+      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-gradient-to-br from-white via-pink-50 to-purple-50 dark:from-slate-950 dark:via-pink-950 dark:to-purple-950">
         <div className="pointer-events-none absolute inset-0 [background-size:60px_60px] [background-image:linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]" />
 
         <motion.div
@@ -175,7 +175,7 @@ export default function AISolutionsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-300 backdrop-blur-sm">
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/5 px-4 py-1.5 text-xs font-medium text-gray-700 dark:text-slate-300 backdrop-blur-sm">
               <Brain className="h-3.5 w-3.5" />
               Artificial Intelligence
             </span>
@@ -197,14 +197,14 @@ export default function AISolutionsPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-400 md:text-xl"
+            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600 dark:text-slate-400 md:text-xl"
           >
             Harnessing artificial intelligence to transform education and
             business.
           </motion.p>
         </div>
 
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent" />
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent dark:from-slate-950" />
       </section>
 
       {/* ================================================================ */}
@@ -218,7 +218,7 @@ export default function AISolutionsPage() {
               Build
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             From intelligent chatbots to predictive analytics, we create AI
             solutions that deliver real value.
           </p>
@@ -229,22 +229,22 @@ export default function AISolutionsPage() {
             <motion.div
               key={solution.title}
               variants={fadeUp}
-              className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/[0.06] bg-gray-50 dark:bg-white/[0.02] p-8 backdrop-blur-sm transition-all hover:border-gray-300 hover:bg-gray-100 dark:hover:border-white/[0.12] dark:hover:bg-white/[0.04]"
             >
               <div className={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${solution.gradient} shadow-lg`}>
                 <solution.icon className="h-7 w-7 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-white">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {solution.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-400">
+              <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-slate-400">
                 {solution.description}
               </p>
               <ul className="mt-5 space-y-2">
                 {solution.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-center gap-2 text-sm text-slate-300"
+                    className="flex items-center gap-2 text-sm text-gray-700 dark:text-slate-300"
                   >
                     <CheckCircle className="h-4 w-4 shrink-0 text-green-400" />
                     {feature}
@@ -267,7 +267,7 @@ export default function AISolutionsPage() {
               Capabilities
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             Our team works across the full spectrum of artificial intelligence
             to deliver comprehensive solutions.
           </p>
@@ -278,20 +278,20 @@ export default function AISolutionsPage() {
             <motion.div
               key={cap.title}
               variants={fadeUp}
-              className="relative overflow-hidden rounded-2xl border border-white/[0.06] p-7 transition-all hover:border-white/[0.12]"
+              className="relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/[0.06] p-7 transition-all hover:border-gray-300 dark:hover:border-white/[0.12]"
               style={{
                 background: "linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04))",
               }}
             >
               <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gradient-to-br from-pink-500/10 to-purple-500/10 blur-2xl" />
               <div className="relative z-10">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 ring-1 ring-white/10">
-                  <cap.icon className="h-6 w-6 text-pink-400" />
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 ring-1 ring-gray-200 dark:ring-white/10">
+                  <cap.icon className="h-6 w-6 text-pink-600 dark:text-pink-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   {cap.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-slate-400">
                   {cap.description}
                 </p>
               </div>
@@ -311,7 +311,7 @@ export default function AISolutionsPage() {
               Cutting-Edge Technology
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             We leverage the latest frameworks and tools to build robust,
             scalable AI solutions.
           </p>
@@ -331,10 +331,10 @@ export default function AISolutionsPage() {
             <motion.div
               key={tech.label}
               variants={fadeUp}
-              className="flex flex-col items-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
+              className="flex flex-col items-center gap-3 rounded-2xl border border-gray-200 dark:border-white/[0.06] bg-gray-50 dark:bg-white/[0.02] p-6 transition-all hover:border-gray-300 hover:bg-gray-100 dark:hover:border-white/[0.12] dark:hover:bg-white/[0.04]"
             >
-              <tech.icon className="h-8 w-8 text-pink-400" />
-              <span className="text-sm font-medium text-slate-300">
+              <tech.icon className="h-8 w-8 text-pink-600 dark:text-pink-400" />
+              <span className="text-sm font-medium text-gray-700 dark:text-slate-300">
                 {tech.label}
               </span>
             </motion.div>

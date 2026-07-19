@@ -212,11 +212,11 @@ const packages = [
 
 export default function TutoringPage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 antialiased overflow-x-hidden">
+    <main className="min-h-screen bg-white dark:bg-slate-950 text-gray-900 dark:text-slate-100 antialiased overflow-x-hidden">
       {/* ================================================================ */}
       {/* HERO                                                             */}
       {/* ================================================================ */}
-      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950">
+      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-gradient-to-br from-white via-blue-50 to-indigo-50 dark:from-slate-950 dark:via-blue-950 dark:to-indigo-950">
         <div className="pointer-events-none absolute inset-0 [background-size:60px_60px] [background-image:linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]" />
 
         <motion.div
@@ -236,7 +236,7 @@ export default function TutoringPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-300 backdrop-blur-sm">
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/5 px-4 py-1.5 text-xs font-medium text-gray-700 dark:text-slate-300 backdrop-blur-sm">
               <GraduationCap className="h-3.5 w-3.5" />
               Academic Excellence
             </span>
@@ -258,13 +258,13 @@ export default function TutoringPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-400 md:text-xl"
+            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600 dark:text-slate-400 md:text-xl"
           >
             Expert guidance to help students excel in their academic journey.
           </motion.p>
         </div>
 
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent" />
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent dark:from-slate-950" />
       </section>
 
       {/* ================================================================ */}
@@ -278,7 +278,7 @@ export default function TutoringPage() {
               Cover
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             Comprehensive tutoring across the core subjects that matter most
             for South African learners.
           </p>
@@ -289,26 +289,26 @@ export default function TutoringPage() {
             <motion.div
               key={subject.title}
               variants={fadeUp}
-              className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-7 backdrop-blur-sm transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/[0.06] bg-gray-50 dark:bg-white/[0.02] p-7 backdrop-blur-sm transition-all hover:border-gray-300 hover:bg-gray-100 dark:hover:border-white/[0.12] dark:hover:bg-white/[0.04]"
             >
               <div className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${subject.gradient} shadow-lg`}>
                 <subject.icon className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-lg font-semibold text-white">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {subject.title}
               </h3>
               <ul className="mt-4 space-y-2">
                 {subject.topics.map((topic) => (
                   <li
                     key={topic}
-                    className="flex items-center gap-2 text-sm text-slate-300"
+                    className="flex items-center gap-2 text-sm text-gray-700 dark:text-slate-300"
                   >
                     <CheckCircle className="h-3.5 w-3.5 shrink-0 text-green-400" />
                     {topic}
                   </li>
                 ))}
               </ul>
-              <button className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 transition-colors hover:text-blue-300">
+              <button className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 transition-colors hover:text-blue-500 dark:hover:text-blue-300">
                 Learn More
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
               </button>
@@ -328,7 +328,7 @@ export default function TutoringPage() {
               Tutoring?
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             We combine expert teaching with modern tools to deliver an
             unmatched learning experience.
           </p>
@@ -339,13 +339,13 @@ export default function TutoringPage() {
             <motion.div
               key={feature.title}
               variants={fadeUp}
-              className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-7 transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
+              className="rounded-2xl border border-gray-200 dark:border-white/[0.06] bg-gray-50 dark:bg-white/[0.02] p-7 transition-all hover:border-gray-300 hover:bg-gray-100 dark:hover:border-white/[0.12] dark:hover:bg-white/[0.04]"
             >
-              <feature.icon className="h-8 w-8 text-blue-400" />
-              <h3 className="mt-4 text-lg font-semibold text-white">
+              <feature.icon className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+              <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
                 {feature.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-slate-400">
                 {feature.description}
               </p>
             </motion.div>
@@ -364,7 +364,7 @@ export default function TutoringPage() {
               Works
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             Getting started is simple. Follow these four steps to begin your
             journey to academic success.
           </p>
@@ -377,15 +377,15 @@ export default function TutoringPage() {
               variants={fadeUp}
               className="relative text-center"
             >
-              <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 ring-1 ring-white/10">
+              <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 ring-1 ring-gray-200 dark:ring-white/10">
                 <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   {step.number}
                 </span>
               </div>
-              <h3 className="text-lg font-semibold text-white">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {step.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-slate-400">
                 {step.description}
               </p>
             </motion.div>
@@ -404,7 +404,7 @@ export default function TutoringPage() {
               Packages
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600 dark:text-slate-400">
             Flexible pricing options designed to fit every budget and learning
             requirement.
           </p>
@@ -417,8 +417,8 @@ export default function TutoringPage() {
               variants={fadeUp}
               className={`relative overflow-hidden rounded-2xl border p-8 transition-all ${
                 pkg.popular
-                  ? "border-blue-500/30 bg-white/[0.04] ring-1 ring-blue-500/20"
-                  : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12]"
+                  ? "border-blue-500/30 bg-gray-100 dark:bg-white/[0.04] ring-1 ring-blue-500/20"
+                  : "border-gray-200 dark:border-white/[0.06] bg-gray-50 dark:bg-white/[0.02] hover:border-gray-300 dark:hover:border-white/[0.12]"
               }`}
             >
               {pkg.popular && (
@@ -427,19 +427,19 @@ export default function TutoringPage() {
                 </span>
               )}
               <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${pkg.gradient}`}>
-                <GraduationCap className="h-6 w-6 text-blue-400" />
+                <GraduationCap className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               </div>
-              <h3 className="text-xl font-semibold text-white">{pkg.name}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{pkg.name}</h3>
               <div className="mt-3 flex items-baseline gap-1">
-                <span className="text-3xl font-bold text-white">{pkg.price}</span>
-                <span className="text-sm text-slate-400">{pkg.period}</span>
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">{pkg.price}</span>
+                <span className="text-sm text-gray-600 dark:text-slate-400">{pkg.period}</span>
               </div>
-              <p className="mt-2 text-sm text-slate-400">{pkg.description}</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-slate-400">{pkg.description}</p>
               <ul className="mt-6 space-y-3">
                 {pkg.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-center gap-2 text-sm text-slate-300"
+                    className="flex items-center gap-2 text-sm text-gray-700 dark:text-slate-300"
                   >
                     <CheckCircle className="h-4 w-4 shrink-0 text-green-400" />
                     {feature}
@@ -451,7 +451,7 @@ export default function TutoringPage() {
                 className={`mt-8 flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold transition-all ${
                   pkg.popular
                     ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:brightness-110"
-                    : "border border-white/15 bg-white/5 text-slate-200 backdrop-blur-sm hover:border-white/25 hover:bg-white/10"
+                    : "border border-gray-200 dark:border-white/15 bg-gray-100 dark:bg-white/5 text-gray-800 dark:text-slate-200 backdrop-blur-sm hover:border-gray-300 dark:hover:border-white/25 hover:bg-gray-100 dark:hover:bg-white/10"
                 }`}
               >
                 Get Started
@@ -467,7 +467,7 @@ export default function TutoringPage() {
       {/* ================================================================ */}
       <Section className="mx-auto max-w-4xl px-6 pb-28">
         <Fade>
-          <div className="relative overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.02] p-10 md:p-14">
+          <div className="relative overflow-hidden rounded-3xl border border-gray-200 dark:border-white/[0.06] bg-gray-50 dark:bg-white/[0.02] p-10 md:p-14">
             <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-blue-500/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-purple-500/10 blur-3xl" />
             <div className="relative z-10">
@@ -479,7 +479,7 @@ export default function TutoringPage() {
                   />
                 ))}
               </div>
-              <blockquote className="text-lg leading-relaxed text-slate-300 md:text-xl">
+              <blockquote className="text-lg leading-relaxed text-gray-700 dark:text-slate-300 md:text-xl">
                 &ldquo;My son struggled with Mathematics for years. After just
                 three months with TWT&apos;s tutoring service, his marks
                 improved from 42% to 78%. The personalised approach and
@@ -491,10 +491,10 @@ export default function TutoringPage() {
                   NP
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">
                     Nomsa Phiri
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-gray-500 dark:text-slate-500">
                     Parent, Johannesburg &mdash; Matric 2025
                   </p>
                 </div>
